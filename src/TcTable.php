@@ -992,11 +992,19 @@ class TcTable {
                     $c['y'] = $pos;
                 }
 
+                $aX = $this->pdf->GetX();
+
                 $this->pdf->MultiCell($c['width'], $h, $data, $c['border'],
                     $c['align'], $c['fill'], $c['ln'], $c['x'], $c['y'],
                     $c['reseth'], $c['stretch'], $c['isHtml'],
                     $c['autoPadding'], $c['maxh'] === null ? $h : $c['maxh'],
                     $c['valign'], $c['fitcell']);
+
+                $pX = $this->pdf->GetX();
+                // fix bug new line
+                if ($header && $pX > $aX && $c['ln'] === true && $c["isMultiLineHeader"] === true) {
+                    $this->pdf->Ln(0);
+                }
 
                 if ($c['isHtml']) {
                     // reset position after drawing the multicell html content
