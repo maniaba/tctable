@@ -1,6 +1,6 @@
 {
     "name": "maniaba/tctable",
-    "version": "1.2.5",
+    "version": "1.2.6",
     "description": "Create quickly and efficiently tables without HTML formatting and with advanced page break options",
     "keywords": [
         "maniaba",
@@ -29,12 +29,12 @@
     },
     "autoload": {
         "psr-4": {
-            "voilab\\tctable\\": "src"
+            "maniaba\\tctable\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "voilab\\tctable\\test\\": "tests"
+            "maniaba\\tctable\\test\\": "tests"
         }
     }
 }

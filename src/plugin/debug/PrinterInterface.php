@@ -1,8 +1,8 @@
 <?php
 
-namespace voilab\tctable\plugin\debug;
+namespace maniaba\tctable\plugin\debug;
 
-use voilab\tctable\plugin\Debug;
+use maniaba\tctable\plugin\Debug;
 
 interface PrinterInterface {
 

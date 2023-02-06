@@ -1,6 +1,6 @@
 <?php
 
-namespace voilab\tctable;
+namespace maniaba\tctable;
 
 interface Plugin {
 

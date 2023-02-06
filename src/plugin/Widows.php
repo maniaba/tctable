@@ -1,9 +1,9 @@
 <?php
 
-namespace voilab\tctable\plugin;
+namespace maniaba\tctable\plugin;
 
-use voilab\tctable\TcTable;
-use voilab\tctable\Plugin;
+use maniaba\tctable\TcTable;
+use maniaba\tctable\Plugin;
 
 class Widows implements Plugin {
 

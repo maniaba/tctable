@@ -1,4 +1,4 @@
-# Voilab TcTable for TCPDF
+# TcTable for TCPDF
 
 ## Install
 
@@ -8,13 +8,13 @@ Create a composer.json file in your project root:
 ``` json
 {
     "require": {
-        "voilab/tctable": "1.*"
+        "maniaba/tctable": "1.*"
     }
 }
 ```
 
 ``` bash
-$ composer require voilab/tctable
+$ composer require maniaba/tctable
 ```
 
 ## Usage
@@ -25,11 +25,12 @@ the number of widow lines (minimum of lines that must appear on the last page),
 and use plugins to customize the flow (see below).
 
 ###  Basic usage
+
 ```php
 $pdf = new \TCPDF();
 $minRowHeight = 6; //mm
 
-$tctable = new \voilab\tctable\TcTable($pdf, $minRowHeight);
+$tctable = new \maniaba\tctable\TcTable($pdf, $minRowHeight);
 $tctable->setColumns([
     'description' => [
         'isMultiLine' => true,
@@ -56,7 +57,7 @@ $rows = getMyDatasAsMyObjs();
 // add a page so the content can be printed on something
 $pdf->AddPage();
 // draw body
-$tctable->addBody($rows, function (\voilab\tctable\TcTable $table, \MyObj $row) {
+$tctable->addBody($rows, function (\maniaba\tctable\TcTable $table, \MyObj $row) {
     $change_rate = 0.8;
     // map row data to TcTable column definitions
     return [
@@ -71,9 +72,10 @@ $pdf->Output('tctable.pdf', 'I');
 
 ### Plugins
 #### Have a column that fit the remaining page width
+
 ```php
 $tctable
-    ->addPlugin(new \voilab\tctable\plugin\FitColumn('text'))
+    ->addPlugin(new \maniaba\tctable\plugin\FitColumn('text'))
     ->addColumn('text', [
         'isMultiLine' => true,
         'header' => 'Text'
@@ -83,13 +85,15 @@ $tctable
 ```
 
 #### Stripe rows
+
 ```php
 $tctable
     // set true to have the first line with colored background
-    ->addPlugin(new \voilab\tctable\plugin\StripeRows(true));
+    ->addPlugin(new \maniaba\tctable\plugin\StripeRows(true));
 ```
 
 #### Widows management
+
 ```php
 // set the minimum elements you want to see on the last page (if any)
 $nb = 4;
@@ -98,17 +102,18 @@ $nb = 4;
 // to add to the pageBreakTrigger margin this line height: the footer
 $mFooter = 10; // i.e: mm
 
-$tctable->addPlugin(new \voilab\tctable\plugin\Widows($nb, $mFooter));
+$tctable->addPlugin(new \maniaba\tctable\plugin\Widows($nb, $mFooter));
 ```
 
 #### Debug
 The TcTable comes with a debug plugin tool that display datas passed in each
 event.
+
 ```php
 // create the plugin. You can define which events to listen (default to rowadd,
 // rowadded, rowskipped, headeradd, headeradded, pageadd and pageadded) and the
 // printer object (default to an HTML output with <pre>)
-$debug = new \voilab\tctable\plugin\Debug();
+$debug = new \maniaba\tctable\plugin\Debug();
 $debug
     ->setBounds($fromIndex = 0, $numberOfRows = 2, $dieWhenOutOfBounds = true);
 
@@ -119,8 +124,9 @@ $tctable->addPlugin($debug);
 ```
 
 You can extend the printer object by creating your own:
+
 ```php
-class MyDebugPrinter implements \voilab\tctable\plugin\debug\PrinterInterface {
+class MyDebugPrinter implements \maniaba\tctable\plugin\debug\PrinterInterface {
 
     public function output(TcTable $table, array $data) {
         // do something, log, etc.
@@ -137,13 +143,14 @@ $debug->setPrinter(new MyDebugPrinter());
 #### Advanced plugin: draw a subtotal for a column at end of each page
 We can go further by calculating a sum for a column, and display the current
 sum at the end of the page, and finally report it on the next page.
+
 ```php
 <?php
 
 namespace your\namespace;
 
-use voilab\tctable\TcTable;
-use voilab\tctable\Plugin;
+use maniaba\tctable\TcTable;
+use maniaba\tctable\Plugin;
 
 class Report implements Plugin {
 
@@ -213,8 +220,9 @@ can simply define events without the need of plugins. It allows us to add some
 usefull methods.
 
 #### Add headers on each new page
+
 ```php
-use \voilab\tctable\TcTable;
+use maniaba\tctable\TcTable;
 // ... create tctable
 
 $tctable
@@ -332,11 +340,6 @@ $ phpunit
 ## Security
 
 If you discover any security related issues, please use the issue tracker.
-
-## Credits
-
-- [tafel](https://github.com/tafel)
-- [voilab](https://github.com/voilab)
 
 ## License
 
