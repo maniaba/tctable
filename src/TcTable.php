@@ -2,6 +2,8 @@
 
 namespace maniaba\tctable;
 
+use http\Message\Body;
+
 /**
  * This class can quickly and easily draw tables with an advanced management
  * of page breaks, row height calculation and plugins integration.
@@ -805,9 +807,10 @@ class TcTable {
      * Then we can adapt the height of all the other cells of this line.
      *
      * @param array|object $row
+     * @param bool $isHeader
      * @return float
      */
-    public function getCurrentRowHeight($row) {
+    public function getCurrentRowHeight($row,$isHeader = false) {
         // get the max height for this row
         $h = $this->getColumnHeight();
         $this->setRowHeight($h);
@@ -820,7 +823,7 @@ class TcTable {
                 $this->setRowHeight($h);
             }
             $this->rowDefinition['_content'][$key] = $h;
-            if ((!isset($row[$key]) && !is_callable($def['renderer']) && !is_callable($def['drawFn'])) || !$def['isMultiLine']) {
+            if ((!isset($row[$key]) && !is_callable($def['renderer']) && !is_callable($def['drawFn'])) || !$def[($isHeader ? 'isMultiLineHeader' : 'isMultiLine')]) {
                 continue;
             }
             $data = $this->fetchDataByUserFunc($def, isset($row[$key]) ? $row[$key] : '', $key, $row, false, true);
@@ -863,7 +866,7 @@ class TcTable {
             }
 
             $rowData = array_filter(array_combine(array_keys($this->rowDefinition), array_column($this->rowDefinition, 'header')));
-            $rowHeight = $this->getCurrentRowHeight($rowData);
+            $rowHeight = $this->getCurrentRowHeight($rowData, true);
             $this->setRowHeight($rowHeight);
             foreach ($this->columnDefinition as $key => $def) {
                 $this->addCell($key, $def['header'], $this->columnDefinition, true);
