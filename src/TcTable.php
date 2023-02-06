@@ -858,6 +858,13 @@ class TcTable {
 
         $this->copyDefaultColumnDefinitions(null);
         if ($this->trigger(self::EV_HEADER_ADD) !== false) {
+            foreach ($this->rowDefinition as $i => &$v) {
+                $v['header'] = $this->fetchDataByUserFunc($v, $v['header'], $i, $this->rowDefinition, true, true);
+            }
+
+            $rowData = array_filter(array_combine(array_keys($this->rowDefinition), array_column($this->rowDefinition, 'header')));
+            $rowHeight = $this->getCurrentRowHeight($rowData);
+            $this->setRowHeight($rowHeight);
             foreach ($this->columnDefinition as $key => $def) {
                 $this->addCell($key, $def['header'], $this->columnDefinition, true);
             }
